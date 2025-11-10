@@ -38,13 +38,18 @@ namespace VoiceTexterBot
         {
             if (update.Type == UpdateType.CallbackQuery)
             {
+                
                 await _telegramClient.SendMessage(update.Message.Chat.Id, "Вы нажали кнопку", cancellationToken: cancellationToken);
                 return;
             }
 
             if (update.Type == UpdateType.Message)
             {
-                await _telegramClient.SendMessage(update.Message.Chat.Id, "Вы отправили сообщение", cancellationToken: cancellationToken);
+                Console.BackgroundColor = ConsoleColor.Blue;
+                Console.WriteLine($"Было отправлено сообщение пользователем({update.Message.Chat.Id}): {update.Message.Text}");
+                Console.BackgroundColor = ConsoleColor.Black;
+
+                await _telegramClient.SendMessage(update.Message.Chat.Id, $"Вы отправили сообщение  {update.Message.Text}", cancellationToken: cancellationToken);
                 return;
             }
         }
